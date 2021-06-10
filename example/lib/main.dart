@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
             ElevatedButton(
               child: Text('Get Data'),
               onPressed: () {
-                log(ParentChildCheckbox._isParentSelected.toString());
-                log(ParentChildCheckbox._selectedChildrenMap.toString());
+                log(ParentChildCheckbox.isParentSelected.toString());
+                log(ParentChildCheckbox.selectedChildrenMap.toString());
               },
             ),
           ],
