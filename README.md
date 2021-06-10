@@ -1,6 +1,6 @@
 # parent_child_checkbox
 
-A new Flutter package project.
+Parent Child Checkbox is a type of checkbox where we can establish hierarchy in Checkboxes
 
 ## Getting Started
 

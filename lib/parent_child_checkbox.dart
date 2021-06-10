@@ -33,7 +33,15 @@ class ParentChildCheckbox extends StatefulWidget {
   /// Parent 1 and Parent 2 will be 2 separate parents if you are using multiple ParentChildCheckbox in your code.
   ///
   /// Default value will be false for all specified parents
-  static Map<String?, bool?> isParentSelected = {};
+  static Map<String?, bool?> _isParentSelected = {};
+
+  /// Getter to get whether particular parent is selected or not.
+  ///
+  /// Example: {'Parent 1' : true, 'Parent 2' : false} where
+  /// Parent 1 and Parent 2 will be 2 separate parents if you are using multiple ParentChildCheckbox in your code.
+  ///
+  /// Default value will be false for all specified parents
+  static get isParentSelected => _isParentSelected;
 
   /// Map which shows which childrens are selected for a particular parent.
   ///
@@ -41,7 +49,15 @@ class ParentChildCheckbox extends StatefulWidget {
   /// Parent 1 and Parent 2 will be 2 separate parents if you are using multiple ParentChildCheckbox in your code.
   ///
   /// Default value is {'Parent 1' : [], 'Parent 2' : []}
-  static Map<String?, List<String?>> selectedChildrenMap = {};
+  static Map<String?, List<String?>> _selectedChildrenMap = {};
+
+  /// Getter to get which childrens are selected for a particular parent.
+  ///
+  /// Example: {'Parent 1' : ['Children 1.1','Children 1.2'], 'Parent 2' : []} where
+  /// Parent 1 and Parent 2 will be 2 separate parents if you are using multiple ParentChildCheckbox in your code.
+  ///
+  /// Default value is {'Parent 1' : [], 'Parent 2' : []}
+  static get selectedChildrens => _selectedChildrenMap;
 
   @override
   _ParentChildCheckboxState createState() => _ParentChildCheckboxState();
@@ -58,8 +74,8 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
   void initState() {
     super.initState();
     _childrenValue = List.filled(widget.children!.length, false);
-    ParentChildCheckbox.selectedChildrenMap.addAll({widget.parent!.data: []});
-    ParentChildCheckbox.isParentSelected.addAll({widget.parent!.data: false});
+    ParentChildCheckbox._selectedChildrenMap.addAll({widget.parent!.data: []});
+    ParentChildCheckbox._isParentSelected.addAll({widget.parent!.data: false});
   }
 
   @override
@@ -111,12 +127,12 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
     setState(() {
       _childrenValue[i] = !_childrenValue[i]!;
       if (!_childrenValue[i]!) {
-        ParentChildCheckbox.selectedChildrenMap.update(widget.parent!.data, (value) {
+        ParentChildCheckbox._selectedChildrenMap.update(widget.parent!.data, (value) {
           value.removeWhere((element) => element == widget.children![i].data);
           return value;
         });
       } else {
-        ParentChildCheckbox.selectedChildrenMap.update(widget.parent!.data, (value) {
+        ParentChildCheckbox._selectedChildrenMap.update(widget.parent!.data, (value) {
           value.add(widget.children![i].data);
           return value;
         });
@@ -130,14 +146,14 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
     setState(() {
       if (_parentValue != null) {
         _parentValue = !_parentValue!;
-        ParentChildCheckbox.isParentSelected.update(widget.parent!.data, (value) => _parentValue);
-        ParentChildCheckbox.selectedChildrenMap.addAll({
+        ParentChildCheckbox._isParentSelected.update(widget.parent!.data, (value) => _parentValue);
+        ParentChildCheckbox._selectedChildrenMap.addAll({
           widget.parent!.data: [],
         });
         for (int i = 0; i < widget.children!.length; i++) {
           _childrenValue[i] = _parentValue;
           if (_parentValue!) {
-            ParentChildCheckbox.selectedChildrenMap.update(widget.parent!.data, (value) {
+            ParentChildCheckbox._selectedChildrenMap.update(widget.parent!.data, (value) {
               value.add(widget.children![i].data);
               return value;
             });
@@ -145,8 +161,8 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
         }
       } else {
         _parentValue = false;
-        ParentChildCheckbox.isParentSelected.update(widget.parent!.data, (value) => _parentValue);
-        ParentChildCheckbox.selectedChildrenMap.update(widget.parent!.data, (value) => []);
+        ParentChildCheckbox._isParentSelected.update(widget.parent!.data, (value) => _parentValue);
+        ParentChildCheckbox._selectedChildrenMap.update(widget.parent!.data, (value) => []);
         for (int i = 0; i < widget.children!.length; i++) _childrenValue[i] = false;
       }
     });
@@ -157,10 +173,10 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
     setState(() {
       if (_childrenValue.contains(false) && _childrenValue.contains(true)) {
         _parentValue = null;
-        ParentChildCheckbox.isParentSelected.update(widget.parent!.data, (value) => false);
+        ParentChildCheckbox._isParentSelected.update(widget.parent!.data, (value) => false);
       } else {
         _parentValue = _childrenValue.first;
-        ParentChildCheckbox.isParentSelected.update(widget.parent!.data, (value) => _childrenValue.first);
+        ParentChildCheckbox._isParentSelected.update(widget.parent!.data, (value) => _childrenValue.first);
       }
     });
   }
