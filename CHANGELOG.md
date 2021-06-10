@@ -1,3 +1,7 @@
+## 0.0.2
+
+* Updated Example to reflect new getter changes
+
 ## 0.0.1
 
 * User can set activeColor of checkbox for both parent and children
