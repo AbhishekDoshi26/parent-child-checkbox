@@ -1,7 +1,8 @@
 name: parent_child_checkbox
-description: A new Flutter package project.
+description: Parent Child Checkbox is a type of checkbox where we can establish hierarchy in Checkboxes
 version: 0.0.1
-homepage: abhishekdoshi.netlify.app
+homepage: https://abhishekdoshi.netlify.app
+repository: https://github.com/AbhishekDoshi26/parent-child-checkbox
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

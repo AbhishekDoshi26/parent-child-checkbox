@@ -1,26 +1,57 @@
 import 'package:flutter/material.dart';
 
+///Main widget of Parent Child Checkbox.
+///Parent Child Checkbox is a type of checkbox where we can establish hierarchy in Checkboxes.
 class ParentChildCheckbox extends StatefulWidget {
+  ///Text Widget to specify the Parent checkbox
   final Text? parent;
-  final List<Text>? children;
-  final Color? parentColor;
-  final Color? childrenColor;
 
+  ///List<Text> Widgets to specify the Children checkboxes
+  final List<Text>? children;
+
+  ///Color of Parent CheckBox
+  ///
+  ///Defaults to [ThemeData.toggleableActiveColor].
+  final Color? parentCheckboxColor;
+
+  ///Color of Parent CheckBox
+  ///
+  ///Defaults to [ThemeData.toggleableActiveColor].
+  final Color? childrenCheckboxColor;
+
+  ///Default constructor of ParentChildCheckbox
   ParentChildCheckbox({
-    Key? key,
-    this.parent,
-    this.children,
-    this.parentColor,
-    this.childrenColor,
-  }) : super(key: key);
+    required this.parent,
+    required this.children,
+    this.parentCheckboxColor,
+    this.childrenCheckboxColor,
+  });
+
+  /// Map which shows whether particular parent is selected or not.
+  ///
+  /// Example: {'Parent 1' : true, 'Parent 2' : false} where
+  /// Parent 1 and Parent 2 will be 2 separate parents if you are using multiple ParentChildCheckbox in your code.
+  ///
+  /// Default value will be false for all specified parents
   static Map<String?, bool?> isParentSelected = {};
+
+  /// Map which shows which childrens are selected for a particular parent.
+  ///
+  /// Example: {'Parent 1' : ['Children 1.1','Children 1.2'], 'Parent 2' : []} where
+  /// Parent 1 and Parent 2 will be 2 separate parents if you are using multiple ParentChildCheckbox in your code.
+  ///
+  /// Default value is {'Parent 1' : [], 'Parent 2' : []}
   static Map<String?, List<String?>> selectedChildrenMap = {};
+
   @override
   _ParentChildCheckboxState createState() => _ParentChildCheckboxState();
 }
 
 class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
+  ///Default parentValue set to false
   bool? _parentValue = false;
+
+  ///List of childrenValue which depicts whether checkbox is clicked or not
   List<bool?> _childrenValue = [];
 
   @override
@@ -40,7 +71,7 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
             Checkbox(
               value: _parentValue,
               splashRadius: 0.0,
-              activeColor: widget.parentColor,
+              activeColor: widget.parentCheckboxColor,
               onChanged: (value) => _parentCheckBoxClick(),
               tristate: true,
             ),
@@ -60,7 +91,7 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
               children: [
                 Checkbox(
                   splashRadius: 0.0,
-                  activeColor: widget.childrenColor,
+                  activeColor: widget.childrenCheckboxColor,
                   value: _childrenValue[i],
                   onChanged: (value) => _childCheckBoxClick(i),
                 ),
@@ -75,6 +106,7 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
     );
   }
 
+  ///onClick method when particular children of index i is clicked
   void _childCheckBoxClick(int i) {
     setState(() {
       _childrenValue[i] = !_childrenValue[i]!;
@@ -89,11 +121,11 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
           return value;
         });
       }
-
       _parentCheckboxUpdate();
     });
   }
 
+  ///onClick method when particular parent is clicked
   void _parentCheckBoxClick() {
     setState(() {
       if (_parentValue != null) {
@@ -120,6 +152,7 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
     });
   }
 
+  ///Method to update the Parent Checkbox based on the status of Child checkbox
   void _parentCheckboxUpdate() {
     setState(() {
       if (_childrenValue.contains(false) && _childrenValue.contains(true)) {
