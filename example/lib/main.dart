@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
               child: Text('Get Data'),
               onPressed: () {
                 log(ParentChildCheckbox.isParentSelected.toString());
-                log(ParentChildCheckbox.selectedChildrenMap.toString());
+                log(ParentChildCheckbox.selectedChildrens.toString());
               },
             ),
           ],

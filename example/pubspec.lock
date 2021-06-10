@@ -86,7 +86,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f45782f64a58cb62daa8876f30e1ccdcbdf8e18d
+      resolved-ref: "6241dee7934c083d619099d9e712d3aa5e559aa5"
       url: "https://github.com/AbhishekDoshi26/parent-child-checkbox"
     source: git
     version: "0.0.1"
