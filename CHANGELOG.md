@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Formated code using flutter format .
+
 ## 0.0.2
 
 * Updated Example to reflect new getter changes
