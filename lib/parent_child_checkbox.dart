@@ -34,6 +34,10 @@ class ParentChildCheckbox extends StatefulWidget {
   /// Defaults to [10.0]
   final double? gap;
 
+  final Map<String?, bool?>? initialParentValue;
+
+  final Map<String?, List<String?>>? initialChildrenValue;
+
   ///Default constructor of ParentChildCheckbox
   ParentChildCheckbox({
     required this.parent,
@@ -42,6 +46,8 @@ class ParentChildCheckbox extends StatefulWidget {
     this.childrenCheckboxColor,
     this.parentCheckboxScale,
     this.childrenCheckboxScale,
+    this.initialParentValue,
+    this.initialChildrenValue,
     this.gap,
   });
 
@@ -91,9 +97,26 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
   @override
   void initState() {
     super.initState();
-    _childrenValue = List.filled(widget.children!.length, false);
-    ParentChildCheckbox._selectedChildrenMap.addAll({widget.parent!.data: []});
-    ParentChildCheckbox._isParentSelected.addAll({widget.parent!.data: false});
+    if (widget.initialParentValue == null && widget.initialChildrenValue == null) {
+      _childrenValue = List.filled(widget.children!.length, false);
+      ParentChildCheckbox._selectedChildrenMap.addAll({widget.parent!.data: []});
+      ParentChildCheckbox._isParentSelected.addAll({widget.parent!.data: false});
+    } else if (widget.initialParentValue != null) {
+      _childrenValue = List.filled(widget.children!.length, true);
+      ParentChildCheckbox._selectedChildrenMap.addAll({widget.parent!.data: []});
+      ParentChildCheckbox._isParentSelected = widget.initialParentValue!;
+      _parentCheckboxUpdate();
+    } else if (widget.initialChildrenValue != null) {
+      _childrenValue = List.filled(widget.children!.length, false);
+       ParentChildCheckbox._selectedChildrenMap.addAll({widget.parent!.data: []});
+      ParentChildCheckbox._isParentSelected.addAll({widget.parent!.data: false});
+
+      for (var i in widget.initialChildrenValue![widget.parent!.data]!) {
+        _childrenValue[widget.children!.indexWhere((element) => element.data == i)] = true;
+        ParentChildCheckbox._selectedChildrenMap[widget.parent!.data]!.add(i);
+        _parentCheckboxUpdate();
+      }
+    }
   }
 
   @override
