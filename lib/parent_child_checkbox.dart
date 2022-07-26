@@ -19,13 +19,22 @@ class ParentChildCheckbox extends StatefulWidget {
   ///Defaults to [ThemeData.toggleableActiveColor].
   final Color? childrenCheckboxColor;
 
+  ///Function that will be executed if a child will be selected
+  ///
+  final void Function(int index)? onCheckedChild;
+
+  ///Function that will be executed if the parent will be selected
+  ///
+  final void Function()? onCheckedParent;
+
   ///Default constructor of ParentChildCheckbox
-  ParentChildCheckbox({
-    required this.parent,
-    required this.children,
-    this.parentCheckboxColor,
-    this.childrenCheckboxColor,
-  });
+  const ParentChildCheckbox(
+      {required this.parent,
+      required this.children,
+      this.parentCheckboxColor,
+      this.childrenCheckboxColor,
+      this.onCheckedChild,
+      this.onCheckedParent});
 
   /// Map which shows whether particular parent is selected or not.
   ///
@@ -33,7 +42,7 @@ class ParentChildCheckbox extends StatefulWidget {
   /// Parent 1 and Parent 2 will be 2 separate parents if you are using multiple ParentChildCheckbox in your code.
   ///
   /// Default value will be false for all specified parents
-  static Map<String?, bool?> _isParentSelected = {};
+  static final Map<String?, bool?> _isParentSelected = {};
 
   /// Getter to get whether particular parent is selected or not.
   ///
@@ -49,7 +58,7 @@ class ParentChildCheckbox extends StatefulWidget {
   /// Parent 1 and Parent 2 will be 2 separate parents if you are using multiple ParentChildCheckbox in your code.
   ///
   /// Default value is {'Parent 1' : [], 'Parent 2' : []}
-  static Map<String?, List<String?>> _selectedChildrenMap = {};
+  static final Map<String?, List<String?>> _selectedChildrenMap = {};
 
   /// Getter to get which childrens are selected for a particular parent.
   ///
@@ -60,7 +69,7 @@ class ParentChildCheckbox extends StatefulWidget {
   static get selectedChildrens => _selectedChildrenMap;
 
   @override
-  _ParentChildCheckboxState createState() => _ParentChildCheckboxState();
+  State<ParentChildCheckbox> createState() => _ParentChildCheckboxState();
 }
 
 class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
@@ -91,18 +100,18 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
               onChanged: (value) => _parentCheckBoxClick(),
               tristate: true,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10.0,
             ),
             widget.parent!,
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 10.0,
         ),
         for (int i = 0; i < widget.children!.length; i++)
           Padding(
-            padding: EdgeInsets.only(left: 25.0),
+            padding: const EdgeInsets.only(left: 25.0),
             child: Row(
               children: [
                 Checkbox(
@@ -111,7 +120,7 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
                   value: _childrenValue[i],
                   onChanged: (value) => _childCheckBoxClick(i),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10.0,
                 ),
                 widget.children![i],
@@ -124,6 +133,10 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
 
   ///onClick method when particular children of index i is clicked
   void _childCheckBoxClick(int i) {
+    final Function(int index)? onCheckedChild = widget.onCheckedChild;
+    if (onCheckedChild != null) {
+      onCheckedChild(i);
+    }
     setState(() {
       _childrenValue[i] = !_childrenValue[i]!;
       if (!_childrenValue[i]!) {
@@ -145,6 +158,10 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
 
   ///onClick method when particular parent is clicked
   void _parentCheckBoxClick() {
+    final Function()? onCheckedParent = widget.onCheckedParent;
+    if (onCheckedParent != null) {
+      onCheckedParent();
+    }
     setState(() {
       if (_parentValue != null) {
         _parentValue = !_parentValue!;
@@ -169,8 +186,9 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
             .update(widget.parent!.data, (value) => _parentValue);
         ParentChildCheckbox._selectedChildrenMap
             .update(widget.parent!.data, (value) => []);
-        for (int i = 0; i < widget.children!.length; i++)
+        for (int i = 0; i < widget.children!.length; i++) {
           _childrenValue[i] = false;
+        }
       }
     });
   }
