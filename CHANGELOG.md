@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Updated deprecated APIs
+
 ## 0.0.3
 
 * Formated code using flutter format .
