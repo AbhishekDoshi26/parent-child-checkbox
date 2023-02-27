@@ -42,6 +42,14 @@ class ParentChildCheckbox extends StatefulWidget {
   /// Defaults to [10.0]
   final double? gap;
 
+  ///Function that will be executed if a child will be selected
+  ///
+  final void Function(int index)? onCheckedChild;
+
+  ///Function that will be executed if the parent will be selected
+  ///
+  final void Function()? onCheckedParent;
+
   ///Default constructor of ParentChildCheckbox
   ParentChildCheckbox({
     required this.parent,
@@ -51,6 +59,8 @@ class ParentChildCheckbox extends StatefulWidget {
     this.parentCheckboxScale,
     this.childrenCheckboxScale,
     this.gap,
+    this.onCheckedChild,
+    this.onCheckedParent,
   });
 
   /// Map which shows whether particular parent is selected or not.
@@ -156,6 +166,10 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
 
   ///onClick method when particular children of index i is clicked
   void _childCheckBoxClick(int i) {
+    final Function(int index)? onCheckedChild = widget.onCheckedChild;
+    if (onCheckedChild != null) {
+      onCheckedChild(i);
+    }
     setState(() {
       _childrenValue[i] = !_childrenValue[i]!;
       if (!_childrenValue[i]!) {
@@ -177,6 +191,10 @@ class _ParentChildCheckboxState extends State<ParentChildCheckbox> {
 
   ///onClick method when particular parent is clicked
   void _parentCheckBoxClick() {
+    final Function()? onCheckedParent = widget.onCheckedParent;
+    if (onCheckedParent != null) {
+      onCheckedParent();
+    }
     setState(() {
       if (_parentValue != null) {
         _parentValue = !_parentValue!;
