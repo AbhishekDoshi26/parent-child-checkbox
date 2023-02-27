@@ -1,6 +1,6 @@
 name: parent_child_checkbox
 description: Parent Child Checkbox is a type of checkbox where we can establish hierarchy in Checkboxes
-version: 0.0.4
+version: 0.0.5
 homepage: https://abhishekdoshi.netlify.app
 repository: https://github.com/AbhishekDoshi26/parent-child-checkbox
 

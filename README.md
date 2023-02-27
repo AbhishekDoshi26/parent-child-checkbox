@@ -31,6 +31,32 @@ If we clicked on Parent Checkbox, all children checkboxes will be selected too. 
     <td>Text Widget</td>
     <td>Text Widget to specify the Parent checkbox</td>
   </tr>
+    <tr>
+    <td>parentCheckboxScale</td>
+    <td>double</td>
+    <td> Scale of the Parent CheckBox. Defaults to [1.0]</td>
+  </tr>
+<tr>
+    <td>childrenCheckboxScale</td>
+    <td>double</td>
+    <td> Scale of the Children CheckBox. Defaults to [1.0]</td>
+  </tr>
+  <tr>
+    <td>gap</td>
+    <td>double</td>
+    <td>Gap between the Parent and Children CheckBox. Defaults to [10.0]</td>
+  </tr>
+    <tr>
+    <td>onCheckedChild</td>
+    <td>void Function(int index)?</td>
+    <td>Function that will be executed if a child will be selected</td>
+  </tr>
+ 
+  <tr>
+    <td>onCheckedParent</td>
+    <td>void Function(int index)?</td>
+    <td>Function that will be executed if the parent will be selected</td>
+  </tr>
   <tr>
     <td>isParentSelected</td>
     <td>Getter</td>
@@ -101,4 +127,3 @@ class MyApp extends StatelessWidget {
 
 
 ```
-

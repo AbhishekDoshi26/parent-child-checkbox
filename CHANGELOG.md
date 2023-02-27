@@ -1,3 +1,9 @@
+## 0.0.5
+
+* Added onCheckedChild and onCheckedParent functionalities
+* Added parentCheckboxScale and childrenCheckboxScale properties
+* Added gap property 
+
 ## 0.0.4
 
 * Updated deprecated APIs

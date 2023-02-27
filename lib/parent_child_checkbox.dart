@@ -3,6 +3,19 @@ import 'package:flutter/material.dart';
 ///Main widget of Parent Child Checkbox.
 ///Parent Child Checkbox is a type of checkbox where we can establish hierarchy in Checkboxes.
 class ParentChildCheckbox extends StatefulWidget {
+  ///Default constructor of ParentChildCheckbox
+  ParentChildCheckbox({
+    required this.parent,
+    required this.children,
+    this.parentCheckboxColor,
+    this.childrenCheckboxColor,
+    this.parentCheckboxScale,
+    this.childrenCheckboxScale,
+    this.gap,
+    this.onCheckedChild,
+    this.onCheckedParent,
+  });
+
   ///Text Widget to specify the Parent checkbox
   final Text? parent;
 
@@ -49,19 +62,6 @@ class ParentChildCheckbox extends StatefulWidget {
   ///Function that will be executed if the parent will be selected
   ///
   final void Function()? onCheckedParent;
-
-  ///Default constructor of ParentChildCheckbox
-  ParentChildCheckbox({
-    required this.parent,
-    required this.children,
-    this.parentCheckboxColor,
-    this.childrenCheckboxColor,
-    this.parentCheckboxScale,
-    this.childrenCheckboxScale,
-    this.gap,
-    this.onCheckedChild,
-    this.onCheckedParent,
-  });
 
   /// Map which shows whether particular parent is selected or not.
   ///
