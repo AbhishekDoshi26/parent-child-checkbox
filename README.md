@@ -54,7 +54,7 @@ If we clicked on Parent Checkbox, all children checkboxes will be selected too. 
  
   <tr>
     <td>onCheckedParent</td>
-    <td>void Function(int index)?</td>
+    <td>void Function()?</td>
     <td>Function that will be executed if the parent will be selected</td>
   </tr>
   <tr>
